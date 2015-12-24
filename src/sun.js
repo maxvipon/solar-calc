@@ -269,9 +269,15 @@ function calcJDofNextPrevRiseSet(next, rise, type, JD, latitude, longitude) {
   var increment = ((next) ? 1.0 : -1.0);
 
   var time = calcSunriseSetUTC(rise, type, julianday, latitude, longitude);
-  while (!isNumber(time)) {
+  /*while (!isNumber(time)) {
     julianday += increment;
     time = calcSunriseSetUTC(rise, type, julianday, latitude, longitude);
+  }*/
+
+  if (!isNumber(time)) {
+    julianday += increment;
+    time = calcSunriseSetUTC(rise, type, julianday, latitude, longitude);
+    if (!isNumber(time)) return 0;
   }
 
   return julianday;
